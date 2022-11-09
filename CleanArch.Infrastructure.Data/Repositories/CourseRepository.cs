@@ -17,6 +17,21 @@ namespace CleanArch.Infrastructure.Data.Repositories
         {
             _universityDBContext = universityDBContext;
         }
+
+        public void AddCourse(Course course)
+        {
+            _universityDBContext.Add(course);
+            _universityDBContext.SaveChanges();
+        }
+
+        public void DeleteCourse(string name)
+        {
+            var forRemoval = _universityDBContext.Courses.Where(x => x.Name == name).FirstOrDefault();
+            _universityDBContext.Remove(forRemoval);
+            _universityDBContext.SaveChanges();
+
+        }
+
         public IEnumerable<Course> GetCourses()
         {
             return _universityDBContext.Courses;
